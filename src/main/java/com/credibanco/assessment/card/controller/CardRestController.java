@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +42,6 @@ public class CardRestController {
 	@PostMapping("/card")
 	public ResponseEntity<Map<String,Object>> createCard(@RequestBody CardDto cardDto){
 		Map<String,Object> response = new HashMap<String,Object>();
-		System.out.println(cardDto);
 		try {
 			//Find card type
 			CardType cardType = cardTypeService.findOneById((long) cardDto.getTypeCard());
@@ -98,6 +98,44 @@ public class CardRestController {
 		}
 	}
 	
-	
+	/**
+	 * Method responsible for changing the status of a card to "active" 
+	 * @param cardDto
+	 * @return
+	 */
+	@PutMapping("/card")
+	public ResponseEntity<Map<String,Object>> enrollCard(@RequestBody CardDto cardDto){
+		Map<String,Object> response = new HashMap<String,Object>();
+		HttpStatus httpStatus = null;
+		try {
+			Card card = cardService.findOneById(cardDto.getIdCard());
+			if(card == null) {
+				response.put("response_code","01");
+				response.put("message","Tarjeta no existe");
+				httpStatus = HttpStatus.NOT_FOUND;
+			}else if(card.getValidationNumber() != cardDto.getValidationNumber()) {
+				response.put("response_code","02");
+				response.put("message","Número de validación inválido");
+				httpStatus = HttpStatus.NOT_ACCEPTABLE;
+				
+			}else {
+				//brings the state "enrolled"
+				Status enrolledStatus = statusService.findOneById(2L);
+				card.setStatus(enrolledStatus);
+				cardService.save(card);
+				response.put("response_code","00");
+				response.put("message","Éxito");
+				String firstDigits = card.getPan().substring(0,6);
+				String lastDigits = card.getPan().substring(cardDto.getPan().length()-4,cardDto.getPan().length());
+				String maskedPan = firstDigits+ "****"+lastDigits;
+				response.put("pan",maskedPan);
+				httpStatus = HttpStatus.OK;
+			}
+			
+		}catch(Exception e) {
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String,Object>>(response,httpStatus); 
+	}
 	
 }
