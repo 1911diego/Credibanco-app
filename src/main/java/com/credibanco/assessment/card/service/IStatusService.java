@@ -1,9 +1,12 @@
 package com.credibanco.assessment.card.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.credibanco.assessment.card.model.Status;
 
-import ch.qos.logback.core.status.Status;
-
-public interface IStatusService extends JpaRepository<Status, Long> {
+public interface IStatusService {
+	
+	public void save(Status status);
+	
+	public Status findOneById(Long id);
+	
 
 }

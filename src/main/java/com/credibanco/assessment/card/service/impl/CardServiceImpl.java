@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.credibanco.assessment.card.model.Card;
+import com.credibanco.assessment.card.repository.ICardRepository;
 import com.credibanco.assessment.card.service.ICardService;
 
 /**
@@ -12,21 +13,29 @@ import com.credibanco.assessment.card.service.ICardService;
  *
  */
 @Service
-public class CardServiceImpl {
+public class CardServiceImpl implements ICardService {
 
+	
 	@Autowired
-	private ICardService cardService;
+	private ICardRepository cardRepository;
 	
 	
-	public void save (Card card) {
-		cardService.save(card);
+	@Override
+	public void save(Card card) {
+		cardRepository.save(card);
+		
 	}
-	
-	public Card findOne(String idCard) {
-		return cardService.findById(idCard).orElse(null);
+
+	@Override
+	public Card findOneById(String idCard) {
+		return cardRepository.findById(idCard).orElse(null);	
 	}
-	
-	public void delete (String idCard) {
-		cardService.deleteById(idCard);
+
+
+	@Override
+	public void deleteById(String idCard) {
+		cardRepository.deleteById(idCard);
 	}
+
+	
 }

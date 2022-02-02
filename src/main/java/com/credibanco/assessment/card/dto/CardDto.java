@@ -1,49 +1,66 @@
 package com.credibanco.assessment.card.dto;
 
+import java.io.Serializable;
+
 /**
- * Class that models a Card DTO
+ * Class that models a card Dto
  * @author Diego Torres
  *
  */
-public class CardDto {
+public class CardDto implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String idCard;
 	
-	private String pan;
-	
 	private Integer validationNumber;
 	
-	private StatusDto status;
+	private String pan;
 	
-	private CardTypeDto cardType;
+	private String idCardholder;
 	
-	private CardholderDto cardholder;
+	private String name;
+	
+	private String telephone;
+	
+	private String status;
+	
+	private Integer typeCard;
 
-	public CardDto(String idCard, String pan, Integer validationNumber, StatusDto status, CardTypeDto cardType,
-			CardholderDto cardholder) {
+	public CardDto(String idCard, Integer validationNumber, String pan, String idCardholder, String name,
+			String telephone, String status,Integer typeCard) {
+		this.idCard = idCard;
+		this.validationNumber = validationNumber;
+		this.pan = pan;
+		this.idCardholder = idCardholder;
+		this.name = name;
+		this.telephone = telephone;
+		this.status = status;
+		this.typeCard = typeCard;
+	}
+	
+	
+	
+	public CardDto() {
+	}
+
+
+
+	public CardDto(String idCard,String pan,Integer validationNumber) {
 		this.idCard = idCard;
 		this.pan = pan;
 		this.validationNumber = validationNumber;
-		this.status = status;
-		this.cardType = cardType;
-		this.cardholder = cardholder;
 	}
 
-	
 	public String getIdCard() {
 		return idCard;
 	}
 
 	public void setIdCard(String idCard) {
 		this.idCard = idCard;
-	}
-
-	public String getPan() {
-		return pan;
-	}
-
-	public void setPan(String pan) {
-		this.pan = pan;
 	}
 
 	public Integer getValidationNumber() {
@@ -54,28 +71,61 @@ public class CardDto {
 		this.validationNumber = validationNumber;
 	}
 
-	public StatusDto getStatus() {
+	public String getPan() {
+		return pan;
+	}
+
+	public void setPan(String pan) {
+		this.pan = pan;
+	}
+
+	public String getIdCardholder() {
+		return idCardholder;
+	}
+
+	public void setIdCardholder(String idCaldholder) {
+		this.idCardholder = idCaldholder;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusDto status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public CardTypeDto getCardType() {
-		return cardType;
+	public Integer getTypeCard() {
+		return typeCard;
 	}
 
-	public void setCardType(CardTypeDto cardType) {
-		this.cardType = cardType;
+	public void setTypeCard(Integer typeCard) {
+		this.typeCard = typeCard;
 	}
 
-	public CardholderDto getCardholder() {
-		return cardholder;
-	}
 
-	public void setCardholder(CardholderDto cardholder) {
-		this.cardholder = cardholder;
+
+	@Override
+	public String toString() {
+		return "CardDto [idCard=" + idCard + ", validationNumber=" + validationNumber + ", pan=" + pan
+				+ ", idCardholder=" + idCardholder + ", name=" + name + ", telephone=" + telephone + ", status="
+				+ status + ", typeCard=" + typeCard + "]";
 	}
 	
 	
