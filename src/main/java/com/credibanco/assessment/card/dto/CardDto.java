@@ -26,12 +26,12 @@ public class CardDto implements Serializable{
 	
 	private String telephone;
 	
-	private String status;
+	private Long status;
 	
-	private Integer typeCard;
+	private Long typeCard;
 
 	public CardDto(String idCard, Integer validationNumber, String pan, String idCardholder, String name,
-			String telephone, String status,Integer typeCard) {
+			String telephone, Long status,Long typeCard) {
 		this.idCard = idCard;
 		this.validationNumber = validationNumber;
 		this.pan = pan;
@@ -43,17 +43,28 @@ public class CardDto implements Serializable{
 	}
 	
 	
-	
-	public CardDto() {
-	}
-
-
-
 	public CardDto(String idCard,String pan,Integer validationNumber) {
 		this.idCard = idCard;
 		this.pan = pan;
 		this.validationNumber = validationNumber;
 	}
+	
+	public CardDto(String pan,String name,String idCardholder,String telephone,Long status) {
+		this.pan = pan;
+		this.name = name;
+		this.idCardholder = idCardholder;
+		this.telephone = telephone;
+		this.status = status;
+	}
+	
+
+	
+	public CardDto() {
+		
+	}
+
+
+
 
 	public String getIdCard() {
 		return idCard;
@@ -103,19 +114,19 @@ public class CardDto implements Serializable{
 		this.telephone = telephone;
 	}
 
-	public String getStatus() {
+	public Long getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Long status) {
 		this.status = status;
 	}
 
-	public Integer getTypeCard() {
+	public Long getTypeCard() {
 		return typeCard;
 	}
 
-	public void setTypeCard(Integer typeCard) {
+	public void setTypeCard(Long typeCard) {
 		this.typeCard = typeCard;
 	}
 

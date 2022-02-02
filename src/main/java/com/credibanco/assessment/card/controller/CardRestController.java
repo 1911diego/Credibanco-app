@@ -7,6 +7,8 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +46,7 @@ public class CardRestController {
 		Map<String,Object> response = new HashMap<String,Object>();
 		try {
 			//Find card type
-			CardType cardType = cardTypeService.findOneById((long) cardDto.getTypeCard());
+			CardType cardType = cardTypeService.findOneById(cardDto.getTypeCard());
 			//Find new Status
 			Status status = statusService.findOneById(1L);
 			
@@ -138,4 +140,39 @@ public class CardRestController {
 		return new ResponseEntity<Map<String,Object>>(response,httpStatus); 
 	}
 	
+	/**
+	 * Method that brings a card
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/card/{id}")
+	public ResponseEntity<Map<String,Object>> findCard(@PathVariable String id){
+		Map<String,Object> response = new HashMap<String,Object>();
+		HttpStatus httpStatus = null;
+		try {
+			Card card = cardService.findOneById(id);
+			if(card == null) {
+				response.put("message","La tarjeta no existe");
+				httpStatus = HttpStatus.NOT_FOUND;
+			}else {
+				
+				String firstDigits = card.getPan().substring(0,6);
+				String lastDigits = card.getPan().substring(card.getPan().length()-4,card.getPan().length());
+				
+				String maskedPan = firstDigits+ "****"+lastDigits;
+				Long status = card.getStatus().getIdStatus();
+				String nameCardholder = card.getCardholder().getName();
+				String idCardholder = card.getCardholder().getIdCardholder();
+				String telephone = card.getCardholder().getTelephone();
+				
+				CardDto cardDto = new CardDto(maskedPan,nameCardholder,idCardholder,telephone,status);
+				
+				response.put("cardDto", cardDto);
+				httpStatus = HttpStatus.OK;
+			}
+		}catch(Exception e) {
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String,Object>>(response,httpStatus); 
+	}
 }
