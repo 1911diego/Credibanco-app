@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card col-md-8">
+        <div class="card-header">
+            <h4 class="text text-primary">
+                Crear Tarjeta
+            </h4>
+            <hr/>
+            <div class="form-group">
+                <div class="col-form-label">Documento titular</div>
+                <input placeholder="Inserte documento del titular" class="form-control" type="text" [(ngModel)]="card.idCardholder" name="cardholder"/>
+            </div>
+            <div class="form-group">
+                <div class="col-form-label">Nombres y apellidos Titular</div>
+                <input placeholder="Inserte Nombres y apellidos" class="form-control" type="text" [(ngModel)]="card.name" name="name"/>
+            </div>
+            <div class="form-group">
+                <div class="col-form-label">Teléfono</div>
+                <input placeholder="Inserte Teléfono" class="form-control" type="text" [(ngModel)]="card.telephone" name="telephone"/>
+            </div>
+            <div class="form-group">
+                <div class="col-form-label">Tipo de Tarjeta</div>
+                <select class="form-control" [(ngModel)]="card.cardType" name="cardType">
+                    <option label="Débito" value="1" ></option>
+                    <option label="Crédito" value="2"></option>
+                </select>
+            </div> 
+            <div class="form-group">
+                <div class="col-form-label">PAN</div>
+                <input placeholder="Inserte 16 dígitos" class="form-control" type="text" [(ngModel)]="card.pan" name="pan"/>
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-success" value="Crear Tarjeta" (click)="create()"/>
+            </div>
+        </div>
+    </div>
+
+</div>
