@@ -16,7 +16,7 @@ public class CardTransactionDto implements Serializable {
 
 	private String idCard;
 	
-	private Long idPurchase;
+	private Long idTransaction;
 	
 	private Double total;
 	
@@ -28,7 +28,7 @@ public class CardTransactionDto implements Serializable {
 
 	public CardTransactionDto(String idCard, Long idPurchase, Double total, String address, String status) {
 		this.idCard = idCard;
-		this.idPurchase = idPurchase;
+		this.idTransaction = idPurchase;
 		this.total = total;
 		this.address = address;
 		this.status = status;
@@ -42,12 +42,14 @@ public class CardTransactionDto implements Serializable {
 		this.idCard = idCard;
 	}
 
-	public Long getIdPurchase() {
-		return idPurchase;
+	
+
+	public Long getIdTransaction() {
+		return idTransaction;
 	}
 
-	public void setIdPurchase(Long idPurchase) {
-		this.idPurchase = idPurchase;
+	public void setIdTransaction(Long idTransaction) {
+		this.idTransaction = idTransaction;
 	}
 
 	public Double getTotal() {

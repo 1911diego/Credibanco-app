@@ -1,10 +1,12 @@
 package com.credibanco.assessment.card.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,7 +28,9 @@ public class CardTransaction implements Serializable {
 	
 
 	@Id
+	@Column(name="id_card_transaction",nullable = false,unique = true)
 	private Long idCardTransaction;
+
 	
 	@JoinColumn(name="fk_purchase",referencedColumnName = "id_purchase")
 	@OneToOne
@@ -124,7 +128,7 @@ public class CardTransaction implements Serializable {
 	}
 
 
-
+	
 
 
 
