@@ -19,4 +19,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
 		return purchaseRepository.findById(id).orElse(null);
 	}
 
+
+	@Override
+	public void save(Purchase purchase) {
+		purchaseRepository.save(purchase);
+	}
+
 }
